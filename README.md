@@ -7,7 +7,7 @@ In order to build this system, one needs to have a BSD compatible `make` system 
 To build, simply open a terminal, `cd` to the source directory and type `bsdmake` and the compiler and linker should do all of the work for you!! :)
 
 # Installation
-There is no built in mechanism for installation. However, one would simple copy the executable into their `/bin` or `/usr/bin` folders using `cp` 
+There is no built in mechanism for installation. However, one would simple copy the executable into their `/usr/local/bin` folders using `cp` 
 
 __use sudo! ;)__
 
