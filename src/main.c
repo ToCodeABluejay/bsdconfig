@@ -81,7 +81,7 @@ const char *machine;		/* machine type, e.g., "sparc" or "sun3" */
 const char *machinearch;	/* machine arch, e.g., "sparc" or "m68k" */
 const char *srcdir;		/* path to source directory (rel. to build) */
 const char *builddir;		/* path to build directory */
-const char *defbuilddir;	/* default build directory */
+char defbuilddir[PATH_MAX];	/* default build directory */
 int errors;			/* counts calls to error() */
 int minmaxusers;		/* minimum "maxusers" parameter */
 int defmaxusers;		/* default "maxusers" parameter */
@@ -141,6 +141,9 @@ main(int argc, char *argv[])
 	char *outfile = NULL;
 	int ch, eflag, uflag, fflag;
 	char dirbuffer[PATH_MAX];
+    
+    strcpy(defbuilddir, getenv("HOME"));
+    strcat(defbuilddir, "/obj");
 
     #ifdef __OpenBSD__
 	if (pledge("stdio rpath wpath cpath flock proc exec", NULL) == -1)
@@ -263,7 +266,7 @@ main(int argc, char *argv[])
 		if (asprintf(&p, "../compile/%s", last_component) == -1)
 			err(1, NULL);
 	}
-	defbuilddir = (argc == 0) ? "." : p;
+	//defbuilddir = (argc == 0) ? "." : p;
 
 	/*
 	 * Parse config file (including machine definitions).
@@ -715,11 +718,13 @@ setupdirs(void)
 	if (stat(srcdir, &st) != 0 || !S_ISDIR(st.st_mode))
 		errc(2, ENOTDIR, "%s", srcdir);
 
+#ifdef __OpenBSD__
 	if (bflag) {
-		//if (pledge("stdio rpath wpath cpath flock", NULL) == -1)
-			//err(1, "pledge");
+		if (pledge("stdio rpath wpath cpath flock", NULL) == -1)
+			err(1, "pledge");
 		return;
 	}
+#endif
 
 	if (stat("obj", &st) == 0)
 		goto reconfig;
