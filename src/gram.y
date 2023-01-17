@@ -154,7 +154,7 @@ topthings:
 
 topthing:
 	SOURCE PATHNAME '\n'		{ if (!srcdir) srcdir = $2; } |
-	BUILD  PATHNAME '\n'		{ if (!builddir) builddir = $2; } |
+	BUILD  PATHNAME '\n'		{ if (!builddir) strlcpy(srcdir, $2, PATH_MAX); } |
 	include '\n' |
 	'\n';
 

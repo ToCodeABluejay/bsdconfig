@@ -271,7 +271,7 @@ extern const char *machine;		/* machine type, e.g., "sparc" or "sun3" */
 extern const char *machinearch;	/* machine arch, e.g., "sparc" or "m68k" */
 extern const char *srcdir;		/* path to source directory (rel. to build) */
 extern const char *builddir;		/* path to build directory */
-extern char defbuilddir[PATH_MAX];	/* default build directory */
+extern const char *defbuilddir;	/* default build directory */
 extern int errors;			/* counts calls to error() */
 extern int minmaxusers;		/* minimum "maxusers" parameter */
 extern int defmaxusers;		/* default "maxusers" parameter */

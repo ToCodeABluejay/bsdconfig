@@ -55,6 +55,9 @@
 
 #include "config.h"
 
+char srcbuff[PATH_MAX];
+char buildbuff[PATH_MAX];
+
 int	firstfile(const char *);
 int	yyparse(void);
 
@@ -81,7 +84,7 @@ const char *machine;		/* machine type, e.g., "sparc" or "sun3" */
 const char *machinearch;	/* machine arch, e.g., "sparc" or "m68k" */
 const char *srcdir;		/* path to source directory (rel. to build) */
 const char *builddir;		/* path to build directory */
-char defbuilddir[PATH_MAX];	/* default build directory */
+const char *defbuilddir;	/* default build directory */
 int errors;			/* counts calls to error() */
 int minmaxusers;		/* minimum "maxusers" parameter */
 int defmaxusers;		/* default "maxusers" parameter */
@@ -142,8 +145,6 @@ main(int argc, char *argv[])
 	int ch, eflag, uflag, fflag;
 	char dirbuffer[PATH_MAX];
     
-    strcpy(defbuilddir, getenv("HOME"));
-    strcat(defbuilddir, "/obj");
 
     #ifdef __OpenBSD__
 	if (pledge("stdio rpath wpath cpath flock proc exec", NULL) == -1)
@@ -266,7 +267,7 @@ main(int argc, char *argv[])
 		if (asprintf(&p, "../compile/%s", last_component) == -1)
 			err(1, NULL);
 	}
-	//defbuilddir = (argc == 0) ? "." : p;
+	defbuilddir = (argc == 0) ? "." : p;
 
 	/*
 	 * Parse config file (including machine definitions).
@@ -698,15 +699,24 @@ setupdirs(void)
 
 	/* srcdir must be specified if builddir is not specified or if
 	 * no configuration filename was specified. */
-	if ((builddir || strcmp(defbuilddir, ".") == 0) && !srcdir) {
+	/*if ((builddir || strcmp(defbuilddir, ".") == 0) && !srcdir) {
 		error("source directory must be specified");
 		exit(1);
-	}
+	}*/
 
-	if (srcdir == NULL)
-		srcdir = "../../../..";
+    if (srcdir == NULL) {
+        chdir("../../../..");
+        getcwd(srcbuff, PATH_MAX);
+        srcdir=srcbuff;
+        printf("%s\n", srcdir);
+    }
 	if (builddir == NULL)
-		builddir = defbuilddir;
+    {
+        strcpy(buildbuff, getenv("HOME"));
+        strcat(buildbuff, "/obj\0");
+        builddir=buildbuff;
+        printf("%s\n", builddir);
+    }
 
 	if (stat(builddir, &st) != 0) {
 		if (mkdir(builddir, 0777))
