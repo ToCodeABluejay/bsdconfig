@@ -732,9 +732,9 @@ setupdirs(void)
 		errx(2, "cannot write Makefile");
 
 reconfig:
-	if (system("make obj") != 0)
+	if (system("bsdmake obj") != 0)
 		exit(2);
-	if (system("make config") != 0)
+	if (system("bsdmake config") != 0)
 		exit(2);
 	exit(0);
 }
