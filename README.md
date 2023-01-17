@@ -2,7 +2,7 @@
 A port of the OpenBSD config system to other host systems
 
 # Building
-In order to build this system, one needs to have a BSD compatible `make system installed on their system. As of writing this, this was first done in order to port the system to mac OS X. So, I personally chose to install `bsdmake` from Macports, but any compatible 'make' system should work just fine.
+In order to build this system, one needs to have a BSD compatible `make` system installed on their system. As of writing this, this was first done in order to port the system to mac OS X. So, I personally chose to install `bsdmake` from Macports, but any compatible `make` system should work just fine.
 
 To build, simply open a terminal, `cd` to the source directory and type `bsdmake` and the compiler and linker should do all of the work for you!! :)
 
