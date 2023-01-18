@@ -55,10 +55,6 @@
 
 #include "config.h"
 
-char srcbuff[PATH_MAX];
-char buildbuff[PATH_MAX];
-char buff[255];
-
 int	firstfile(const char *);
 int	yyparse(void);
 
@@ -700,28 +696,21 @@ setupdirs(void)
 
 	/* srcdir must be specified if builddir is not specified or if
 	 * no configuration filename was specified. */
-	/*if ((builddir || strcmp(defbuilddir, ".") == 0) && !srcdir) {
+	if ((builddir || strcmp(defbuilddir, ".") == 0) && !srcdir) {
 		error("source directory must be specified");
 		exit(1);
-	}*/
+	}
 
     if (srcdir == NULL) {
-        chdir("../../../..");
-        getcwd(srcbuff, PATH_MAX);
-        srcdir=srcbuff;
-        printf("%s\n", srcdir);
+        srcdir = "../../../..";;
     }
 	if (builddir == NULL)
     {
-        strcpy(buildbuff, getenv("HOME"));
-        strcat(buildbuff, "/obj\0");
-        builddir=buildbuff;
-        printf("%s\n", builddir);
+        builddir = defbuilddir;
     }
-
+    
 	if (stat(builddir, &st) != 0) {
-		if (mkdir(builddir, 0777))
-			err(2, "cannot create %s", builddir);
+        mkdir(builddir, 0777);
 	} else if (!S_ISDIR(st.st_mode))
 		errc(2, ENOTDIR, "%s", builddir);
 	if (chdir(builddir) != 0)
@@ -747,9 +736,7 @@ setupdirs(void)
 		errx(2, "cannot write Makefile");
 
 reconfig:
-    strcpy(buff, "bsdmake obj -C ");
-    strcat(buff, srcdir);
-	if (system(buff) != 0)
+	if (system("bsdmake obj") != 0)
 		exit(2);
 	if (system("bsdmake config") != 0)
 		exit(2);
