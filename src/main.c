@@ -700,13 +700,14 @@ setupdirs(void)
 		error("source directory must be specified");
 		exit(1);
 	}
-
+    
     if (srcdir == NULL) {
         srcdir = "../../../..";;
     }
 	if (builddir == NULL)
     {
         builddir = defbuilddir;
+        printf("%s", defbuilddir);
     }
     
 	if (stat(builddir, &st) != 0) {
@@ -727,7 +728,6 @@ setupdirs(void)
 #endif
 	if (stat("obj", &st) == 0)
 		goto reconfig;
-
 	fp = fopen("Makefile", "w");
 	if (!fp)
 		errx(2, "cannot create Makefile");
