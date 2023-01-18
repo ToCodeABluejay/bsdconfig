@@ -57,6 +57,7 @@
 
 char srcbuff[PATH_MAX];
 char buildbuff[PATH_MAX];
+char buff[255];
 
 int	firstfile(const char *);
 int	yyparse(void);
@@ -173,6 +174,7 @@ main(int argc, char *argv[])
 			if (!isatty(STDIN_FILENO))
 				verbose = 1;
 			break;
+#endif  /* OpenBSD */
 		case 'p':
 			/*
 			 * Essentially the same as makeoptions PROF="-pg",
@@ -186,7 +188,6 @@ main(int argc, char *argv[])
 			 */
 			pflag = 1;
 			break;
-        #endif  /* OpenBSD */
 		case 'b':
 			bflag = optarg;
 			builddir = optarg;
@@ -735,7 +736,6 @@ setupdirs(void)
 		return;
 	}
 #endif
-
 	if (stat("obj", &st) == 0)
 		goto reconfig;
 
@@ -747,7 +747,9 @@ setupdirs(void)
 		errx(2, "cannot write Makefile");
 
 reconfig:
-	if (system("bsdmake obj") != 0)
+    strcpy(buff, "bsdmake obj -C ");
+    strcat(buff, srcdir);
+	if (system(buff) != 0)
 		exit(2);
 	if (system("bsdmake config") != 0)
 		exit(2);
