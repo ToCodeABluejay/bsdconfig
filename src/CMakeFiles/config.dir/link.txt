@@ -1,1 +1,0 @@
-/usr/bin/cc -rdynamic CMakeFiles/config.dir/files.c.o CMakeFiles/config.dir/hash.c.o CMakeFiles/config.dir/mkheaders.c.o CMakeFiles/config.dir/mkioconf.c.o CMakeFiles/config.dir/mkmakefile.c.o CMakeFiles/config.dir/mkswap.c.o CMakeFiles/config.dir/pack.c.o CMakeFiles/config.dir/sem.c.o CMakeFiles/config.dir/util.c.o -o config 

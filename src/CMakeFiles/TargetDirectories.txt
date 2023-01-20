@@ -1,3 +1,0 @@
-/home/gabrielb/Bureau/bsdconfig/src/CMakeFiles/config.dir
-/home/gabrielb/Bureau/bsdconfig/src/CMakeFiles/edit_cache.dir
-/home/gabrielb/Bureau/bsdconfig/src/CMakeFiles/rebuild_cache.dir
