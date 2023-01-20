@@ -1,0 +1,19 @@
+Detecting C compiler ABI info failed to compile with the following output:
+Change Dir: /home/gabrielb/Bureau/bsdconfig/src/CMakeFiles/CMakeScratch/TryCompile-yLnI1b
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_0ec13/fast && bsdmake  -f CMakeFiles/cmTC_0ec13.dir/build.make CMakeFiles/cmTC_0ec13.dir/build
+make: no system rules (sys.mk).
+make: *** [Makefile:127: cmTC_0ec13/fast] Error 2
+
+
+
+
+Determining if the C compiler works failed with the following output:
+Change Dir: /home/gabrielb/Bureau/bsdconfig/src/CMakeFiles/CMakeScratch/TryCompile-0j9cyh
+
+Run Build Command(s):/usr/bin/make -f Makefile cmTC_4edeb/fast && bsdmake  -f CMakeFiles/cmTC_4edeb.dir/build.make CMakeFiles/cmTC_4edeb.dir/build
+make: no system rules (sys.mk).
+make: *** [Makefile:127: cmTC_4edeb/fast] Error 2
+
+
+

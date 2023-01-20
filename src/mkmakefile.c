@@ -41,6 +41,9 @@
  *	from: @(#)mkmakefile.c	8.1 (Berkeley) 6/6/93
  */
 
+#ifdef linux
+#define _GNU_SOURCE
+#endif /* linux */
 #include <ctype.h>
 #include <err.h>
 #include <errno.h>
